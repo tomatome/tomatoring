@@ -1,5 +1,5 @@
 {
-    "ImportPath": "helloworld",
+    "ImportPath": "tomatoring",
     "GoVersion": "go1.4.2",
     "Packages": [
         "./…"
