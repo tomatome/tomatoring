@@ -21,6 +21,10 @@ func adminHandler(res http.ResponseWriter, req *http.Request) {
        return
     }
     
-     http.Redirect(res, req, "/index", http.StatusFound)
+    t, err := template.ParseFiles("index.html")
+    if (err != nil) {
+        log.Println(err)
+    }
+    t.Execute(res, nil)
     
 }
