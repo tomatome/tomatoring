@@ -16,11 +16,11 @@ func main() {
 }
 
 func adminHandler(res http.ResponseWriter, req *http.Request) {
-    if r.URL.Path == "/hello" {
+    if req.URL.Path == "/hello" {
        fmt.Fprintln(res, "hello, world")
        return
     }
     
-     http.Redirect(w, r, "/index", http.StatusFound)
+     http.Redirect(res, req, "/index", http.StatusFound)
     
 }
