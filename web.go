@@ -3,6 +3,7 @@ package main
 import (
     "fmt"
     "net/http"
+    "html/template"
     "os"
 )
 
@@ -23,7 +24,7 @@ func adminHandler(res http.ResponseWriter, req *http.Request) {
     
     t, err := template.ParseFiles("index.html")
     if (err != nil) {
-        log.Println(err)
+        fmt.Println(err)
     }
     t.Execute(res, nil)
     
