@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-    http.HandleFunc("/", hello)
+    http.HandleFunc("/", adminHandler)
     fmt.Println("listening...")
     err := http.ListenAndServe(":"+os.Getenv("PORT"), nil)
     if err != nil {
@@ -15,6 +15,12 @@ func main() {
     }
 }
 
-func hello(res http.ResponseWriter, req *http.Request) {
-    fmt.Fprintln(res, "hello, world")
+func adminHandler(res http.ResponseWriter, req *http.Request) {
+    if r.URL.Path == "/hello" {
+       fmt.Fprintln(res, "hello, world")
+       return
+    }
+    
+     http.Redirect(w, r, "/index", http.StatusFound)
+    
 }
