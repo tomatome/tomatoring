@@ -33,7 +33,7 @@ type DBCenter struct {
 
 func ParseConfig() *config {
 	c := new(config)
-	yamlFile, err := ioutil.ReadFile("e:/wandoujia/GoProject/tomatoring/config.yaml")
+	yamlFile, err := ioutil.ReadFile("config.yaml")
 	if err != nil {
 		log.Printf("yamlFile Get err #%v ", err)
 	}

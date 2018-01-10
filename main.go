@@ -6,7 +6,6 @@ import (
 	"model"
 	"net/http"
 	"os"
-	"tomatoring/model"
 
 	"github.com/gin-gonic/gin"
 )
