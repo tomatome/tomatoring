@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/gin-gonic/gin"
+	"vendor/github.com/gin-gonic/gin"
 )
 
 type DataCenter struct {
