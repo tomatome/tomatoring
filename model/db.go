@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"log"
 
-	_ "vendor/github.com/lib/pq"
-	yaml "vendor/gopkg.in/yaml.v2"
+	_ "github.com/lib/pq"
+	yaml "gopkg.in/yaml.v2"
 )
 
 type IModelDao interface {
