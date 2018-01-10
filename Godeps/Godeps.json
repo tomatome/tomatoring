@@ -2,6 +2,7 @@
 	"ImportPath": ".",
 	"GoVersion": "go1.9",
 	"GodepVersion": "v79",
+	"Package":"./",
 	"Deps": [
 		{
 			"ImportPath": "github.com/gin-contrib/sse",
