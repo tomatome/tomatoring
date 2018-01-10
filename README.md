@@ -1,3 +1,0 @@
-# tomatoring
-
-heroku app example
