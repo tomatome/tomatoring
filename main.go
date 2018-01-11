@@ -26,7 +26,7 @@ func main() {
 	router.PUT("/server/put", PutHandler)
 	router.DELETE("/server/delete", DeleteHandler)
 	//监听端口
-	os.Setenv("PORT", "12345")
+	//os.Setenv("PORT", "12345")
 	log.Println("listening...", os.Getenv("PORT"))
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), router)
 	if err != nil {
