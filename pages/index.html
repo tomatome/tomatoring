@@ -6,5 +6,11 @@
     <body>
         <h1>This is heading!</h1>
         <p>Hello world!</p>
+		<form action="server/upload", method="post" enctype="multipart/form-data">
+    <input type="text" value="hello gin" />
+    <input type="file" name="upload" />
+    <input type="submit" value="upload" />
+</form>
+
     </body>
 </html>

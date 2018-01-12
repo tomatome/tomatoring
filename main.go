@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"model"
 	"net/http"
@@ -21,12 +22,17 @@ func main() {
 	dc.bc = model.InitDB()
 	gin.SetMode(gin.DebugMode) //全局设置环境，此为开发环境，线上环境为gin.ReleaseMode
 	router := gin.Default()
+
+	router.LoadHTMLGlob("pages/*.html")
+	router.MaxMultipartMemory = 8 << 20
+	router.GET("/", Handler)
 	router.GET("/server/get", GetHandler)
 	router.POST("/server/post", PostHandler)
-	router.PUT("/server/put", PutHandler)
-	router.DELETE("/server/delete", DeleteHandler)
+	router.POST("/server/upload", UploadHandler)
+	//router.PUT("/upload", UploadHandler)
+	//router.DELETE("/server/delete", DeleteHandler)
 	//监听端口
-	//os.Setenv("PORT", "12345")
+	os.Setenv("PORT", "12345")
 	log.Println("listening...", os.Getenv("PORT"))
 	err := http.ListenAndServe(":"+os.Getenv("PORT"), router)
 	if err != nil {
@@ -44,6 +50,10 @@ func GetHandler(c *gin.Context) {
 	c.Data(http.StatusOK, "text/plain", []byte(fmt.Sprintf("get success! %s\n", value)))
 	return
 }
+func Handler(c *gin.Context) {
+	c.HTML(http.StatusOK, "index.html", gin.H{"title": "文件上传下载页面"})
+
+}
 func PostHandler(c *gin.Context) {
 	type JsonHolder struct {
 		Id   int    `json:"id"`
@@ -54,8 +64,30 @@ func PostHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, holder)
 	return
 }
-func PutHandler(c *gin.Context) {
-	c.Data(http.StatusOK, "text/plain", []byte("put success!\n"))
+func UploadHandler(c *gin.Context) {
+	log.Println("UploadHandler")
+	name := c.PostForm("name")
+	log.Println(name)
+	file, header, err := c.Request.FormFile("upload")
+	if err != nil {
+		c.String(http.StatusBadRequest, "Bad request")
+		return
+	}
+	filename := header.Filename
+
+	fmt.Println(file, err, filename)
+
+	out, err := os.Create("pages/static/" + filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer out.Close()
+	_, err = io.Copy(out, file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	c.String(http.StatusCreated, "upload successful")
+	//c.String(http.StatusOK, fmt.Sprintf("File %s uploaded successfully\n", file.Filename))
 	return
 }
 func DeleteHandler(c *gin.Context) {
